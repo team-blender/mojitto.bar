@@ -13,23 +13,11 @@ const Box = styled.div`
   margin-bottom: 30px;
 `;
 
-const Blender = styled.a`
-  text-decoration: underline;
-  transition: 0.5s ease-in-out;
-  margin-right: 5px;
-  &:hover {
-    color: rgba(255, 255, 255, 1);
-  }
-`;
-
+// 원본은 ©TEAM BLENDER가 teamblender.co 링크였으나, 그 도메인은 등록이 풀려
+// 제3자가 선점할 수 있는 상태라 링크를 제거하고 표기를 모지또로 통일한다. (빅터 결정, 2026-07-16)
 const Copyright = () => {
   return (
-    <Box>
-      <Blender href="https://teamblender.co/" target="_blank">
-        ©TEAM BLENDER
-      </Blender>
-      ALL RIGHTS RESERVED.
-    </Box>
+    <Box className="dD">©MOJITTO ALL RIGHTS RESERVED.</Box>
   );
 };
 
