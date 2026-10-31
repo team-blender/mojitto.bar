@@ -1,10 +1,5 @@
 <!doctype html>
-<!--
-  Google Play '계정 삭제 웹 주소'(데이터 보안 양식) — https://mojitto.bar/delete-account/
-  Play 정책: 앱 안에서 계정을 만들 수 있으면 앱 밖에서도 삭제를 요청할 수 있어야 한다(앱 이름·개발자 이름·단계·지우는 것·남는 것과 기간).
-  React 라우터(HashRouter, #/privacy) 밖의 정적 쪽이라 주소에 # 이 없고 자바스크립트 없이 열린다.
-  🚨 서버의 탈퇴 처리(server/lounge/functions/lounge/deletion.py · SCHEMA.md §A-2)나 보관 기간이 바뀌면 이 쪽도 같이 고칠 것.
--->
+<!-- 라운지 계정 삭제 안내(Google Play 계정 삭제 웹 주소). 탈퇴 처리나 보관 기간이 바뀌면 개인정보처리방침과 함께 고칠 것. -->
 <html lang="ko">
   <head>
     <meta charset="utf-8" />
@@ -86,7 +81,7 @@
           <p class="lead">
             「모지또 - 데일리 이모지 다이어리」 앱의 칵테일 라운지 계정을 지우는 방법이에요.
             라운지 계정은 카카오·구글·애플로 로그인하면 만들어져요.
-            <b>모지또의 일기는 폰에만 있어서, 라운지 계정을 지워도 일기는 그대로예요.</b>
+            <b>라운지 계정을 지워도 폰에 있는 일기는 그대로예요.</b>
           </p>
           <p class="meta">앱: 모지또 - 데일리 이모지 다이어리 · Google Play 개발자: Tapas Maker</p>
         </header>
@@ -99,7 +94,7 @@
             <li>화면 아래쪽의 계정 칸을 눌러요.</li>
             <li><span class="ui">라운지 계정 탈퇴</span> → <span class="ui">지우기</span>를 눌러요.</li>
           </ol>
-          <p class="note">안드로이드와 아이폰 모두 같은 순서예요. 누르는 즉시 로그아웃되고, 친구들 화면에서도 내 잔이 내려가요.</p>
+          <p class="note">안드로이드와 아이폰 모두 같은 순서예요. 더보기 화면의 <span class="ui">칵테일 라운지</span> 줄로도 갈 수 있어요(라운지가 잠시 쉬고 있을 때도요). 애플로 로그인했다면 마지막에 애플 확인 창이 한 번 더 떠요. 그 창을 닫으면 탈퇴가 취소돼요. 탈퇴하면 바로 로그아웃되고, 친구들 화면에서도 내 잔이 내려가요.</p>
         </section>
 
         <section>
@@ -118,8 +113,8 @@
         <section>
           <h2>3. 지워지는 것</h2>
           <ul>
-            <li><b>바로</b> — 로그인 정보, 초대 코드, 알림을 받을 주소, 라운지에 들고 간 잔(친구들 화면에서도 내려가요)</li>
-            <li><b>몇 분 뒤부터 차례로</b> — 라운지 이름, 친구 관계, Cheers 기록, 보낸 친구 요청, 공유 범위 설정, 라운지에 올린 라벨·스토리·사진, 내가 한 신고, 이용 정지 기록</li>
+            <li><b>바로</b> — 로그인 정보, 초대 코드, 알림을 받을 주소, 라운지에 들고 간 잔과 거기 올린 라벨·스토리·사진(친구들 화면에서도 내려가요)</li>
+            <li><b>몇 분 뒤부터 차례로</b> — 라운지 이름, 친구 관계, Cheers 기록, 주고받은 친구 요청, 공유 범위 설정, 내가 한 신고, 이용 정지 기록. 모두 지워지기까지 몇 시간 걸릴 수 있어요.</li>
           </ul>
           <p>지운 계정은 되돌릴 수 없어요. 같은 방법으로 다시 로그인하면 아무것도 없는 새 계정이 만들어져요.</p>
         </section>
@@ -139,6 +134,14 @@
               <dt>서버 접속 기록 <span class="when">30일</span></dt>
               <dd>접속 IP·기기 정보 같은 기록이에요. 장애를 고치고 보안을 지키기 위해서예요.</dd>
             </div>
+            <div>
+              <dt>친구 쪽에 남은 Cheers 판정·알림 발송 기록 <span class="when">최대 이틀</span></dt>
+              <dd>친구 화면에는 보이지 않는 처리용 기록이에요. 자동으로 지워져요.</dd>
+            </div>
+            <div>
+              <dt>로그인 서비스(Google Firebase)의 백업 <span class="when">최대 180일</span></dt>
+              <dd>지운 계정의 로그인 정보는 Google의 백업에서도 180일 안에 지워져요.</dd>
+            </div>
           </dl>
         </section>
 
@@ -149,7 +152,7 @@
             <li><b>골드</b> — 골드 회원권과 구독은 라운지 계정과 따로라서 지워지지도, 해지되지도 않아요. 구독 해지는 Google Play·App Store의 구독 관리에서 해 주세요.</li>
             <li><b>일기</b> — 폰의 일기는 라운지 계정과 상관없이 그대로예요.</li>
           </ul>
-          <p class="note">문의 mojitto.bar@gmail.com · <a href="/#/privacy">개인정보처리방침</a></p>
+          <p class="note">문의 mojitto.bar@gmail.com · <a href="/#/privacy">개인정보처리방침</a> · <a href="/terms/">이용약관</a></p>
         </section>
 
         <hr class="divider" />
@@ -161,7 +164,7 @@
             <p class="lead">
               How to delete your Cocktail Lounge account in the app “Mojitto - Daily Emoji Diary”.
               A Lounge account is created when you sign in with Kakao, Google or Apple.
-              <b>Your diary is stored only on your phone, so deleting your Lounge account does not delete your diary.</b>
+              <b>Deleting your Lounge account does not touch the diary on your phone.</b>
             </p>
             <p class="meta">App: Mojitto - Daily Emoji Diary · Google Play developer: Tapas Maker</p>
           </header>
@@ -174,7 +177,7 @@
               <li>Tap the account row near the bottom.</li>
               <li>Tap <span class="ui">Delete Lounge account</span>, then <span class="ui">Delete</span>.</li>
             </ol>
-            <p class="note">The steps are the same on Android and iPhone. You are signed out right away, and your drink disappears from your friends’ screens.</p>
+            <p class="note">The steps are the same on Android and iPhone. You can also get there from the <span class="ui">Cocktail Lounge</span> row on the More screen, even while the Lounge is taking a break. If you signed in with Apple, an Apple confirmation appears at the end; closing it cancels the deletion. Once deleted, you are signed out right away and your drink disappears from your friends’ screens.</p>
           </section>
 
           <section>
@@ -193,8 +196,8 @@
           <section>
             <h2>3. What is deleted</h2>
             <ul>
-              <li><b>Right away</b> — sign-in data, your invite code, your notification address, and the drinks you brought into the Lounge (they also disappear from your friends’ screens)</li>
-              <li><b>Within the next minutes, step by step</b> — your Lounge name, friendships, Cheers history, friend requests you sent, sharing settings, labels, stories and photos you shared in the Lounge, reports you made, and suspension records</li>
+              <li><b>Right away</b> — sign-in data, your invite code, your notification address, and the drinks you brought into the Lounge with the labels, stories and photos you shared on them (they also disappear from your friends’ screens)</li>
+              <li><b>Starting a few minutes later, step by step</b> — your Lounge name, friendships, Cheers history, friend requests sent and received, sharing settings, reports you made, and suspension records. It can take a few hours for everything to be deleted.</li>
             </ul>
             <p>Deletion cannot be undone. If you sign in again the same way, a new empty account is created.</p>
           </section>
@@ -214,6 +217,14 @@
                 <dt>Server access logs <span class="when">30 days</span></dt>
                 <dd>Records such as IP address and device information, kept to fix problems and keep the service secure.</dd>
               </div>
+              <div>
+                <dt>Cheers and notification records on a former friend’s side <span class="when">up to 2 days</span></dt>
+                <dd>Processing records that never appear on your friend’s screen. They are deleted automatically.</dd>
+              </div>
+              <div>
+                <dt>Backups of the sign-in service (Google Firebase) <span class="when">up to 180 days</span></dt>
+                <dd>Sign-in data of a deleted account is also removed from Google’s backups within 180 days.</dd>
+              </div>
             </dl>
           </section>
 
@@ -224,7 +235,7 @@
               <li><b>Gold</b> — Gold memberships and subscriptions are separate from your Lounge account, so they are neither deleted nor cancelled. To cancel a subscription, use subscription management in Google Play or the App Store.</li>
               <li><b>Diary</b> — the diary on your phone stays as it is.</li>
             </ul>
-            <p class="note">Contact mojitto.bar@gmail.com · <a href="/#/privacy">Privacy Policy</a></p>
+            <p class="note">Contact mojitto.bar@gmail.com · <a href="/#/privacy">Privacy Policy</a> · <a href="/terms/">Terms of Service</a></p>
           </section>
         </div>
       </main>
