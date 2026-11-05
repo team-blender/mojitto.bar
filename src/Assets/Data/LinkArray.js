@@ -8,7 +8,9 @@
 const LinkArray = {
   download: [
     {
-      url: "https://apps.apple.com/us/app/mojitto-daily-emoji-diary/id1631717082",
+      // 국가 코드(/us/)를 빼면 방문자 계정의 스토어로 자동 전환된다.
+      // /us/ 고정이면 대만·일본 등 해외 방문자가 미국 스토어 페이지를 만나 설치가 막힌다.
+      url: "https://apps.apple.com/app/id1631717082",
       label: "Apple Appstore",
     },
     {
