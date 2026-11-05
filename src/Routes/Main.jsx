@@ -7,6 +7,7 @@ import Links from "../Components/Links";
 import LinkArray from "../Assets/Data/LinkArray";
 import Copyright from "../Components/Copyright";
 import Intro from "../Components/Intro";
+import PolicyLinks from "../Components/PolicyLinks";
 
 const Main = () => {
   return (
@@ -17,6 +18,7 @@ const Main = () => {
       <Intro></Intro>
       <Links title={"App Download"} dataArray={LinkArray.download}></Links>
       <Links title={"Channel"} dataArray={LinkArray.channel}></Links>
+      <PolicyLinks></PolicyLinks>
       <Copyright></Copyright>
     </Container>
   );
