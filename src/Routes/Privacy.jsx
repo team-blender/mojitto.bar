@@ -2,59 +2,252 @@ import React, { useEffect } from "react";
 import styled from "styled-components";
 import Container from "../Components/Container";
 import Cursor from "../Components/Cursor";
-// 이 파일에는 문서 제목용 styled 컴포넌트 Header가 이미 있어 사이트 헤더는 별칭으로 받는다
 import SiteHeader from "../Components/Header";
+import Privacy20260716 from "./Privacy20260716";
+import useInEffect from "../Hooks/useInEffect";
+import { POLICY_2026_11_14_EFFECTIVE_AT } from "../Assets/Data/policySchedule";
+import NOTICE from "../Assets/Policy/notice-2026-11-14.json";
+import privacyKo from "../Assets/Policy/privacy-2026-11-14.ko.html?raw";
+import privacyEn from "../Assets/Policy/privacy-2026-11-14.en.html?raw";
 
-const Box = styled.div`
+// 라이브 앱(골드 화면·라운지 로그인 화면)이 https://mojitto.bar/#/privacy 로 여는 쪽.
+//
+// 2026-11-06 공고 ~ 2026-11-13: 맨 위 공고 상자 → 새 방침(2026-11-14 시행) 한·영 → 지금 방침(2026-07-16 판).
+// 2026-11-14 0시(한국 시각)부터: 새 방침 한·영만. 바뀌는 순간은 policySchedule.js 한 곳에서 정한다.
+// 새 방침 글은 원고에서 만든 조각(src/Assets/Policy)을 그대로 넣는다 — 글을 여기서 고치지 않는다.
+
+const KO_HTML = { __html: privacyKo };
+const EN_HTML = { __html: privacyEn };
+const MAIL = "mojitto.bar@gmail.com";
+
+const Page = styled.div`
   width: 100%;
-  padding: 30px;
+  min-width: 0;
+  padding: 0 20px 20px;
   display: flex;
   flex-direction: column;
 `;
 
-const Header = styled.div`
-  width: 100%;
-  font-size: 24px;
-  line-height: 1.3;
+const TopRow = styled.div`
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 6px;
+`;
+
+const LinkButton = styled.button`
+  background: none;
+  border: 0;
+  padding: 0;
+  font: inherit;
+  color: inherit;
+  cursor: inherit;
+  text-align: left;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+`;
+
+const JumpButton = styled(LinkButton)`
+  font-size: 14px;
+  color: rgba(255, 255, 255, 0.45);
+  text-decoration: none;
+  &:hover {
+    color: rgba(255, 255, 255, 1);
+  }
+`;
+
+const Notice = styled.aside`
+  margin: 4px 0 32px;
+  padding: 18px 20px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  line-height: 1.65;
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-user-select: text;
+  user-select: text;
+`;
+
+const NoticeTitle = styled.h2`
+  font-size: 17px;
   font-weight: 700;
-  margin-bottom: 30px;
+  line-height: 1.4;
+  margin-bottom: 8px;
 `;
 
-const Bigger = styled.div`
-  font-size: 36px;
-`;
-
-const Title = styled.div`
-  font-size: 18px;
-  margin-top: 10px;
-  line-height: 1.3;
-  margin-bottom: 10px;
-`;
-
-const Contents = styled.div`
+const NoticeText = styled.p`
   font-size: 16px;
-  line-height: 1.3;
-  font-weight: 300;
-  margin-bottom: 20px;
-  opacity: 0.6;
+  color: rgba(255, 255, 255, 0.74);
+  a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
 `;
 
-const Margin = styled.div`
+const NoticeLinks = styled.div`
+  margin-top: 10px;
+  font-size: 15px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px 16px;
+  a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+`;
+
+const NoticeEnglish = styled.div`
+  margin-top: 18px;
+  padding-top: 16px;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+`;
+
+const SectionLabel = styled.div`
+  font-size: 13px;
+  font-weight: 600;
+  color: #8ee6c4;
+  margin: 0 0 4px;
+`;
+
+const Divider = styled.hr`
   width: 100%;
-  height: 20px;
+  border: 0;
+  border-top: 1px solid rgba(255, 255, 255, 0.14);
+  margin: 44px 0 24px;
 `;
 
-// 라이브 앱(Android 골드 결제 화면)이 https://mojitto.bar/#/privacy 로 여는 페이지.
-//
-// ⚠️ 2026-07-16 전면 개정. 이전 문서(2020-12-08 시행)는 모지또를 서술한 것이 아니라
-// 회원제 웹사이트용 범용 템플릿이었다 — 회원가입·이메일·비밀번호·본인인증·쿠키·접속IP를
-// 수집한다고 선언했으나 앱에 그 기능이 전혀 없었고(FirebaseAuth·WebView 0건), 반대로
-// 실제로 일어나는 Analytics·Crashlytics·자체 로그 전송·Drive 백업·Google 위탁·국외이전은
-// 한 줄도 없었다.
-//
-// 이 문서의 모든 항목은 2026-07-16 양 플랫폼 소스·서버 함수 실측 감사로 확인된 사실만
-// 담았다. 사실이 바뀌면(수집 항목 추가, 서버 도입 등) 이 문서도 함께 고쳐야 한다.
+const PolicyArticle = styled.article`
+  width: 100%;
+  min-width: 0;
+  font-size: 16px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, 0.74);
+  word-break: keep-all;
+  overflow-wrap: anywhere;
+  -webkit-user-select: text;
+  user-select: text;
+
+  h1 {
+    font-size: 26px;
+    font-weight: 700;
+    line-height: 1.3;
+    color: #fff;
+    margin: 8px 0 18px;
+  }
+  h2 {
+    font-size: 20px;
+    font-weight: 700;
+    line-height: 1.4;
+    color: #fff;
+    margin: 34px 0 12px;
+  }
+  h3 {
+    font-size: 17px;
+    font-weight: 700;
+    line-height: 1.45;
+    color: #fff;
+    margin: 26px 0 10px;
+  }
+  p {
+    margin: 10px 0;
+  }
+  ul,
+  ol {
+    margin: 10px 0;
+    padding-left: 24px;
+  }
+  ul {
+    list-style: disc;
+  }
+  ul ul {
+    list-style: circle;
+  }
+  ol {
+    list-style: decimal;
+  }
+  li + li {
+    margin-top: 6px;
+  }
+  li > ul,
+  li > ol,
+  li > p {
+    margin-top: 6px;
+    margin-bottom: 0;
+  }
+  strong {
+    font-weight: 700;
+    color: #fff;
+  }
+  a {
+    text-decoration: underline;
+    text-underline-offset: 3px;
+  }
+  hr {
+    border: 0;
+    border-top: 1px solid rgba(255, 255, 255, 0.14);
+    margin: 32px 0;
+  }
+  .table-wrap {
+    overflow-x: auto;
+    margin: 12px 0;
+    -webkit-overflow-scrolling: touch;
+  }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+    font-size: 14px;
+    line-height: 1.55;
+  }
+  th,
+  td {
+    border: 1px solid rgba(255, 255, 255, 0.14);
+    padding: 8px 10px;
+    text-align: left;
+    vertical-align: top;
+    min-width: 3em;
+  }
+  table.cols-3 {
+    min-width: 30em;
+  }
+  table.cols-4,
+  table.cols-5,
+  table.cols-6 {
+    min-width: 42em;
+  }
+  th {
+    color: #fff;
+    font-weight: 700;
+    background: rgba(255, 255, 255, 0.06);
+  }
+`;
+
+const OldSection = styled.section`
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  padding: 0 20px;
+`;
+
+const scrollToId = (id) => {
+  const el = document.getElementById(id);
+  if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
+};
+
+const withMailLink = (text) =>
+  text.split(MAIL).flatMap((part, i) =>
+    i === 0
+      ? [part]
+      : [
+          <a key={i} href={`mailto:${MAIL}`}>
+            {MAIL}
+          </a>,
+          part,
+        ]
+  );
+
 const MojitoPrivacy = () => {
+  const inEffect = useInEffect(POLICY_2026_11_14_EFFECTIVE_AT);
+
   useEffect(() => {
     document.title = "개인정보처리방침 | 모지또";
     return () => {
@@ -67,297 +260,56 @@ const MojitoPrivacy = () => {
       <Cursor />
       <Container>
         <SiteHeader />
-        <Box>
-          <Header>
-            <Bigger>모지또</Bigger>
-            개인정보처리방침
-          </Header>
+        <Page>
+          <TopRow>
+            <JumpButton type="button" onClick={() => scrollToId("privacy-en")}>
+              English
+            </JumpButton>
+          </TopRow>
 
-          <Contents>
-            Team Blender(이하 &apos;회사&apos;)는 개인정보 보호법에 따라 이용자의
-            개인정보를 보호하고 이와 관련한 고충을 신속하게 처리할 수 있도록
-            다음과 같이 개인정보처리방침을 두고 있습니다.
-          </Contents>
-          <Contents>
-            모지또는 <b>회원가입이 없는 앱</b>입니다. 이용자가 작성한 일기, 사진,
-            감정 기록은 <b>이용자의 기기 안에만 저장되며 회사의 서버로 전송되지
-            않습니다.</b> 회사는 이용자의 일기 내용과 사진을 열람할 수 없습니다.
-          </Contents>
-          <Contents>○ 본 방침은 2026년 7월 16일부터 시행됩니다.</Contents>
+          {!inEffect && (
+            <Notice aria-labelledby="policy-notice-title" data-policy-notice="">
+              <NoticeTitle id="policy-notice-title">11월 14일부터 새 방침이 시행돼요</NoticeTitle>
+              <NoticeText>{withMailLink(NOTICE.ko)}</NoticeText>
+              <NoticeLinks>
+                <a href="/privacy/changes-2026-11-14/">바뀌는 점 — 변경 전·후 비교표</a>
+                <LinkButton type="button" onClick={() => scrollToId("privacy-2026-11-14")}>
+                  새 방침 전문
+                </LinkButton>
+                <LinkButton type="button" onClick={() => scrollToId("privacy-2026-07-16")}>
+                  지금 방침 전문(2026년 7월 16일 시행)
+                </LinkButton>
+                <a href="/terms/">이용약관</a>
+              </NoticeLinks>
+              <NoticeEnglish lang="en">
+                <NoticeTitle>The new Privacy Policy takes effect on November 14</NoticeTitle>
+                <NoticeText>{withMailLink(NOTICE.en)}</NoticeText>
+                <NoticeLinks>
+                  <a href="/privacy/changes-2026-11-14/">Comparison table (in Korean)</a>
+                  <LinkButton type="button" onClick={() => scrollToId("privacy-en")}>
+                    New Privacy Policy in English
+                  </LinkButton>
+                  <a href="/terms/">Terms of Use</a>
+                </NoticeLinks>
+              </NoticeEnglish>
+            </Notice>
+          )}
 
-          <Title>1. 개인정보의 처리 목적</Title>
-          <Contents>
-            회사는 다음의 목적을 위하여 개인정보를 처리하며, 다음의 목적 이외의
-            용도로는 이용하지 않습니다.
-            <Margin />
-            <p>① 앱 오류 진단 및 고객 문의 대응</p>
-            <p>
-              앱에서 오류가 발생한 경우 원인을 파악하고, 이용자의 문의(결제 문제
-              등)에 답변하기 위하여 처리합니다.
-            </p>
-            <Margin />
-            <p>② 구독 상품(모지또 골드) 결제 검증 및 복원</p>
-            <p>
-              구독 결제가 유효한지 확인하고, 기기 변경·재설치 시 구독을
-              복원하기 위하여 처리합니다.
-            </p>
-            <Margin />
-            <p>③ 서비스 이용 통계</p>
-            <p>
-              어떤 기능이 얼마나 이용되는지 파악하여 서비스를 개선하기 위하여
-              처리합니다. 일기 내용과 사진은 통계에 포함되지 않습니다.
-            </p>
-            <Margin />
-            <p>④ 데이터 백업 (이용자가 직접 켠 경우에 한함)</p>
-            <p>
-              이용자가 백업 기능을 켠 경우, 기록을 이용자 본인의 클라우드 저장소에
-              보관하기 위하여 처리합니다.
-            </p>
-          </Contents>
+          {!inEffect && <SectionLabel>새 방침 · 2026년 11월 14일부터 시행</SectionLabel>}
+          <PolicyArticle id="privacy-2026-11-14" lang="ko" dangerouslySetInnerHTML={KO_HTML} />
 
-          <Title>2. 처리하는 개인정보 항목</Title>
-          <Contents>
-            <p>
-              <b>가. 기기에만 저장되며 외부로 전송되지 않는 정보</b>
-            </p>
-            <p>
-              일기 제목·본문·첨부 사진, 감정 기록 및 기록 시각, 칵테일 결과,
-              닉네임, 알림 시각 설정, 화면 잠금 비밀번호, 앱 환경설정
-            </p>
-            <p>
-              위 정보는 기기 내부 저장소에만 보관되며 회사 서버로 전송되지
-              않습니다.
-            </p>
-            <Margin />
-            <p>
-              <b>
-                나. 오류 진단·문의 대응을 위해 회사 서버로 전송되는 정보
-                (Android)
-              </b>
-            </p>
-            <p>
-              닉네임, 기기 식별자, 오류 메시지 및 오류 발생 위치, 앱 버전,
-              운영체제 버전, 구독 결제 관련 오류인 경우 주문번호
-            </p>
-            <p>
-              ※ 기기 식별자는 기기에서 생성한 값으로, 앱을 삭제하면 소멸합니다.
-            </p>
-            <p>
-              ※ 이 항목은 Android에만 해당합니다. iOS 앱은 오류 정보를 회사
-              서버로 전송하지 않습니다.
-            </p>
-            <Margin />
-            <p>
-              <b>다. 구독 결제 검증을 위해 회사 서버로 전송되는 정보 (Android)</b>
-            </p>
-            <p>닉네임, 결제 확인용 구매 토큰</p>
-            <p>
-              ※ iOS 앱은 기기 안에서 결제를 확인하므로 결제 정보를 회사 서버로
-              전송하지 않습니다.
-            </p>
-            <Margin />
-            <p>
-              <b>라. 서비스 이용 통계를 위해 자동으로 수집되는 정보</b>
-            </p>
-            <p>
-              앱 이용 기록(기능 사용 여부, 기록 시각대, 알림 설정 여부, 백업 사용
-              여부 등), 구독 상태, 앱 오류 정보, 기기 정보(모델·운영체제 버전)
-            </p>
-            <p>
-              ※ 회사는 광고를 제공하지 않으며 광고식별자를 수집하지 않습니다.
-            </p>
-            <Margin />
-            <p>
-              <b>마. 백업 기능을 켠 경우 (Android)</b>
-            </p>
-            <p>
-              일기 전문과 첨부 사진이 담긴 백업 파일이 <b>이용자 본인의 Google
-              Drive</b> 내 앱 전용 영역에 저장됩니다. 이 영역은 모지또 앱만 접근할
-              수 있으며, <b>회사도 열람할 수 없습니다.</b>
-            </p>
-          </Contents>
+          <Divider />
+          {!inEffect && <SectionLabel lang="en">New policy · effective November 14, 2026</SectionLabel>}
+          <PolicyArticle id="privacy-en" lang="en" dangerouslySetInnerHTML={EN_HTML} />
+        </Page>
 
-          <Title>3. 개인정보의 처리 및 보유 기간</Title>
-          <Contents>
-            <p>① 기기에 저장된 정보 : 앱을 삭제하면 함께 삭제됩니다.</p>
-            <Margin />
-            <p>
-              ② 백업 파일 : 이용자 본인의 Google Drive에 보관되며, 앱을 삭제해도
-              남아 있습니다. 이용자가 앱의 백업 해제 기능 또는 Google 계정
-              설정에서 직접 삭제할 수 있습니다.
-            </p>
-            <Margin />
-            <p>③ 오류 진단·문의 대응 기록 : 수집일로부터 30일</p>
-            <Margin />
-            <p>④ 구독 결제 검증 기록 : 수집일로부터 30일</p>
-            <Margin />
-            <p>
-              ⑤ 서비스 이용 통계 : 이벤트 데이터는 수집일로부터 2개월, 사용자
-              데이터는 수집일로부터 14개월
-            </p>
-            <Margin />
-            <p>
-              ⑥ 관련 법령에 따라 보존이 필요한 경우 해당 기간 동안 보관합니다.
-            </p>
-            <p>- 대금결제 및 재화 등의 공급에 관한 기록 : 5년</p>
-            <p>- 소비자의 불만 또는 분쟁처리에 관한 기록 : 3년</p>
-          </Contents>
-
-          <Title>4. 개인정보의 제3자 제공</Title>
-          <Contents>
-            회사는 이용자의 개인정보를 제3자에게 제공하지 않습니다. 다만 법령에
-            따라 요구되는 경우는 예외로 합니다. 서비스 운영에 필요한 처리위탁은
-            제5항에 따릅니다.
-          </Contents>
-
-          <Title>5. 개인정보 처리의 위탁</Title>
-          <Contents>
-            회사는 원활한 서비스 제공을 위하여 다음과 같이 개인정보 처리업무를
-            위탁하고 있습니다.
-            <Margin />
-            <p>▶ Google LLC</p>
-            <p>
-              위탁 업무 : 앱 오류 수집, 서비스 이용 통계, 서버 및 로그 운영,
-              구독 결제 검증, 백업 저장소 제공
-            </p>
-            <Margin />
-            <p>▶ Apple Inc.</p>
-            <p>위탁 업무 : 구독 결제 처리 (iOS)</p>
-            <Margin />
-            <p>
-              회사는 위탁계약 시 개인정보가 안전하게 관리되도록 필요한 사항을
-              규정하고 관리·감독하고 있습니다.
-            </p>
-          </Contents>
-
-          <Title>6. 개인정보의 국외 이전</Title>
-          <Contents>
-            제5항의 위탁에 따라 개인정보가 국외에서 처리될 수 있습니다.
-            <Margin />
-            <p>- 이전받는 자 : Google LLC, Apple Inc.</p>
-            <p>- 이전 국가 : 미국 등 각 사업자의 데이터센터 소재 국가</p>
-            <p>
-              - 이전 항목 : 제2항 나·다·라에 기재된 정보
-            </p>
-            <p>- 이전 일시 및 방법 : 서비스 이용 시 정보통신망을 통해 전송</p>
-            <p>- 이전 목적 : 제1항의 처리 목적과 동일</p>
-            <p>- 보유 기간 : 제3항과 동일</p>
-          </Contents>
-
-          <Title>7. 정보주체의 권리·의무 및 행사방법</Title>
-          <Contents>
-            <p>
-              ① 이용자는 언제든지 앱 안에서 직접 일기·감정 기록·사진을 조회·수정·삭제할
-              수 있으며, 앱을 삭제하면 기기에 저장된 정보가 모두 삭제됩니다.
-            </p>
-            <Margin />
-            <p>
-              ② 백업 파일은 앱의 백업 해제 기능 또는 이용자의 Google 계정 설정에서
-              직접 삭제할 수 있습니다.
-            </p>
-            <Margin />
-            <p>
-              ③ 회사 서버에 보관된 정보(제2항 나·다)에 대한 열람·정정·삭제·처리정지는
-              제10항의 개인정보 보호책임자에게 전자우편으로 요청하실 수 있으며,
-              회사는 지체 없이 조치합니다.
-            </p>
-            <Margin />
-            <p>
-              ④ 이용자는 서비스 이용 통계 수집을 원하지 않는 경우 기기의 운영체제
-              설정에서 이를 제한할 수 있습니다.
-            </p>
-          </Contents>
-
-          <Title>8. 개인정보의 파기</Title>
-          <Contents>
-            <p>
-              ① 기기에 저장된 정보는 앱 삭제 시 기기에서 삭제되며, 회사는 이에
-              관여하지 않습니다.
-            </p>
-            <Margin />
-            <p>
-              ② 회사 서버에 보관된 정보는 제3항의 보유 기간이 지나면 지체 없이
-              파기합니다. 전자적 파일 형태의 정보는 복구할 수 없는 방법으로
-              삭제합니다.
-            </p>
-          </Contents>
-
-          <Title>9. 개인정보의 안전성 확보조치</Title>
-          <Contents>
-            <p>
-              ① 일기 본문·사진·감정 기록을 회사 서버로 전송하지 않고 이용자의 기기
-              안에만 보관합니다.
-            </p>
-            <Margin />
-            <p>
-              ② 백업 파일은 이용자 본인의 클라우드 저장소 중 모지또 앱만 접근할 수
-              있는 전용 영역에 저장되며, 회사는 접근 권한을 갖지 않습니다.
-            </p>
-            <Margin />
-            <p>③ 서버와 주고받는 모든 정보는 암호화된 통신 구간으로 전송합니다.</p>
-            <Margin />
-            <p>
-              ④ 개인정보를 처리하는 시스템의 접근 권한을 업무상 필요한 최소한의
-              인원에게만 부여하고 관리합니다.
-            </p>
-          </Contents>
-
-          <Title>10. 개인정보 자동 수집 장치의 설치·운영 및 거부</Title>
-          <Contents>
-            <p>
-              ① 회사는 서비스 이용 통계와 오류 수집을 위하여 Google의 분석 도구를
-              이용합니다. 수집 항목은 제2항 라와 같습니다.
-            </p>
-            <Margin />
-            <p>
-              ② 이용자는 기기의 운영체제 설정에서 통계 수집을 제한할 수 있습니다.
-            </p>
-            <Margin />
-            <p>
-              ③ 모지또는 앱이므로 쿠키를 사용하지 않으며, 광고를 제공하지 않고
-              광고식별자를 수집하지 않습니다.
-            </p>
-          </Contents>
-
-          <Title>11. 개인정보 보호책임자</Title>
-          <Contents>
-            ① 회사는 개인정보 처리에 관한 업무를 총괄해서 책임지고, 개인정보
-            처리와 관련한 이용자의 불만처리 및 피해구제 등을 위하여 아래와 같이
-            개인정보 보호책임자를 지정하고 있습니다.
-            <Margin />
-            <p>▶ 개인정보 보호책임자</p>
-            <p>성명 : 이준우</p>
-            <p>연락처 : mojitto.bar@gmail.com</p>
-            <Margin />
-            <p>
-              ② 이용자는 서비스를 이용하시면서 발생한 모든 개인정보 보호 관련
-              문의, 불만처리, 피해구제 등에 관한 사항을 개인정보 보호책임자에게
-              문의하실 수 있습니다. 회사는 지체 없이 답변 및 처리해드릴 것입니다.
-            </p>
-          </Contents>
-
-          <Title>12. 권익침해 구제방법</Title>
-          <Contents>
-            이용자는 개인정보 침해로 인한 구제를 받기 위하여 아래 기관에 분쟁
-            해결이나 상담 등을 신청할 수 있습니다.
-            <Margin />
-            <p>- 개인정보 침해신고센터 : (국번없이) 118 / privacy.kisa.or.kr</p>
-            <p>- 개인정보 분쟁조정위원회 : 1833-6972 / kopico.go.kr</p>
-            <p>- 대검찰청 사이버수사과 : (국번없이) 1301 / spo.go.kr</p>
-            <p>- 경찰청 사이버수사국 : (국번없이) 182 / ecrm.police.go.kr</p>
-          </Contents>
-
-          <Title>13. 개인정보처리방침의 변경</Title>
-          <Contents>
-            <p>
-              ① 이 방침은 시행일로부터 적용되며, 내용의 추가·삭제 및 정정이 있는
-              경우에는 변경사항의 시행 7일 전부터 앱 또는 웹사이트를 통하여 고지할
-              것입니다.
-            </p>
-            <Margin />
-            <p>② 이전의 개인정보처리방침 : 2020년 12월 8일 ~ 2026년 7월 15일</p>
-          </Contents>
-        </Box>
+        {!inEffect && (
+          <OldSection id="privacy-2026-07-16" data-policy-current="">
+            <Divider />
+            <SectionLabel>지금 시행 중인 방침 · 2026년 7월 16일 ~ 2026년 11월 13일</SectionLabel>
+          </OldSection>
+        )}
+        {!inEffect && <Privacy20260716 />}
       </Container>
     </>
   );
