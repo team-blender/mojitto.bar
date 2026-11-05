@@ -1,0 +1,253 @@
+<!doctype html>
+<html lang="ko">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>라운지 계정 삭제 | 모지또</title>
+    <meta name="description" content="모지또 칵테일 라운지 계정을 지우는 방법 — 앱에서 바로, 또는 메일로 요청" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" />
+    <style>
+      :root {
+        --ground: #0c0c0c;
+        --ink: #ffffff;
+        --soft: rgba(255, 255, 255, 0.68);
+        --faint: rgba(255, 255, 255, 0.42);
+        --line: rgba(255, 255, 255, 0.12);
+        --card: rgba(255, 255, 255, 0.05);
+        --mint: #8ee6c4;
+      }
+      * { box-sizing: border-box; margin: 0; padding: 0; }
+      html { scroll-behavior: smooth; }
+      body {
+        background: var(--ground);
+        color: var(--ink);
+        font-family: Pretendard, -apple-system, BlinkMacSystemFont, system-ui, Roboto, "Helvetica Neue", "Segoe UI",
+          "Apple SD Gothic Neo", "Noto Sans KR", "Malgun Gothic", sans-serif;
+        font-size: 16px;
+        line-height: 1.6;
+        -webkit-text-size-adjust: 100%;
+        word-break: keep-all;
+        overflow-wrap: anywhere;
+      }
+      a { color: inherit; text-underline-offset: 3px; }
+      a:focus-visible { outline: 2px solid var(--mint); outline-offset: 3px; border-radius: 4px; }
+      .page { max-width: 600px; margin: 0 auto; padding: 0 20px 40px; }
+      .top { height: 70px; display: flex; align-items: center; justify-content: space-between; }
+      .top img { height: 20px; display: block; }
+      .lang { font-size: 14px; color: var(--faint); text-decoration: none; }
+      .lang:hover { color: var(--ink); }
+      header { padding: 10px 0 30px; }
+      .app { font-size: 36px; font-weight: 700; line-height: 1.2; }
+      h1 { font-size: 24px; font-weight: 700; line-height: 1.3; text-wrap: balance; }
+      .lead { margin-top: 16px; color: var(--soft); }
+      .meta { margin-top: 14px; font-size: 14px; color: var(--faint); }
+      section { padding: 26px 0; border-top: 1px solid var(--line); }
+      h2 { font-size: 18px; font-weight: 700; line-height: 1.4; margin-bottom: 12px; text-wrap: balance; }
+      p, li { color: var(--soft); }
+      p + p { margin-top: 10px; }
+      ol, ul { padding-left: 22px; display: grid; gap: 8px; }
+      ul.plain { list-style: none; padding-left: 0; }
+      b, strong { color: var(--ink); font-weight: 600; }
+      .ui { color: var(--ink); font-weight: 600; white-space: nowrap; }
+      .mail {
+        display: inline-block; margin: 6px 0 12px; padding: 12px 16px; border-radius: 12px;
+        background: var(--card); border: 1px solid var(--line); color: var(--ink); font-weight: 600; text-decoration: none;
+      }
+      .mail:hover { border-color: var(--faint); }
+      .keep { display: grid; gap: 12px; }
+      .keep div { padding: 14px 16px; border-radius: 12px; background: var(--card); }
+      .keep dt { color: var(--ink); font-weight: 600; }
+      .keep dd { color: var(--soft); margin-top: 4px; }
+      .when { display: inline-block; margin-left: 6px; font-size: 13px; font-weight: 600; color: var(--mint); white-space: nowrap; }
+      .note { font-size: 14px; color: var(--faint); margin-top: 12px; }
+      .divider { margin: 40px 0 10px; border: 0; border-top: 1px solid var(--line); }
+      footer { padding: 30px 0 10px; text-align: center; font-size: 12px; color: rgba(185, 185, 185, 0.5); }
+      @media (max-width: 380px) { .app { font-size: 30px; } h1 { font-size: 21px; } }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <div class="top">
+        <a href="/" aria-label="모지또 홈"><img src="logo.png" alt="Mojitto" /></a>
+        <a class="lang" href="#en">English</a>
+      </div>
+
+      <main>
+        <header>
+          <div class="app">모지또</div>
+          <h1>칵테일 라운지 계정 삭제</h1>
+          <p class="lead">
+            「모지또 - 데일리 이모지 다이어리」 앱의 칵테일 라운지 계정을 지우는 방법이에요.
+            라운지 계정은 카카오·구글·애플로 로그인하면 만들어져요.
+            <b>라운지 계정을 지워도 폰에 있는 일기는 그대로예요.</b>
+          </p>
+          <p class="meta">앱: 모지또 - 데일리 이모지 다이어리 · Google Play 개발자: Tapas Maker</p>
+        </header>
+
+        <section>
+          <h2>1. 앱에서 바로 지우기</h2>
+          <ol>
+            <li>모지또를 열고 <span class="ui">칵테일</span> 탭에서 칵테일 라운지로 들어가요.</li>
+            <li>라운지 오른쪽 위의 사람 모양 단추를 눌러 <span class="ui">내 라운지</span>로 가요.</li>
+            <li>화면 아래쪽의 계정 칸을 눌러요.</li>
+            <li><span class="ui">라운지 계정 탈퇴</span> → <span class="ui">지우기</span>를 눌러요.</li>
+          </ol>
+          <p class="note">안드로이드와 아이폰 모두 같은 순서예요. 더보기 화면의 <span class="ui">칵테일 라운지</span> 줄로도 갈 수 있어요(라운지가 잠시 쉬고 있을 때도요). 애플로 로그인했다면 마지막에 애플 확인 창이 한 번 더 떠요. 그 창을 닫으면 탈퇴가 취소돼요. 탈퇴하면 바로 로그아웃되고, 친구들 화면에서도 내 잔이 내려가요.</p>
+        </section>
+
+        <section>
+          <h2>2. 앱 없이 메일로 요청하기</h2>
+          <p>폰을 잃어버렸거나, 앱을 지웠거나, 로그인이 되지 않으면 메일로 요청해 주세요.</p>
+          <a class="mail" href="mailto:mojitto.bar@gmail.com?subject=%EB%9D%BC%EC%9A%B4%EC%A7%80%20%EA%B3%84%EC%A0%95%20%EC%82%AD%EC%A0%9C%20%EC%9A%94%EC%B2%AD">mojitto.bar@gmail.com</a>
+          <ul>
+            <li>제목: <b>라운지 계정 삭제 요청</b></li>
+            <li>로그인한 방법(카카오·구글·애플)</li>
+            <li>라운지 이름</li>
+            <li>구글로 로그인했다면 그 구글 메일 주소</li>
+          </ul>
+          <p>보내 주신 내용으로 계정을 찾을 수 있으면 지운 뒤 답장드려요. 다른 사람의 계정을 지우는 일이 없도록 몇 가지를 더 여쭤볼 수 있어요.</p>
+        </section>
+
+        <section>
+          <h2>3. 지워지는 것</h2>
+          <ul>
+            <li><b>바로</b> — 로그인 정보, 초대 코드, 카카오 회원번호로 계정을 찾는 기록, 알림을 받을 주소, 라운지에 들고 간 잔과 거기 올린 라벨·스토리·사진(친구들 화면에서도 내려가요)</li>
+            <li><b>몇 분 뒤부터 차례로</b> — 라운지 이름, 친구 관계, Cheers 기록, 주고받은 친구 요청, 내 차단 목록, 공유 범위 설정, 내가 한 신고와 그 증거, 이용 정지 기록. 24시간 안에 모두 지워져요.</li>
+          </ul>
+          <p>지운 계정은 되돌릴 수 없어요. 같은 방법으로 다시 로그인하면 아무것도 없는 새 계정이 만들어져요.</p>
+        </section>
+
+        <section>
+          <h2>4. 남는 것과 기간</h2>
+          <dl class="keep">
+            <div>
+              <dt>다른 사람이 나를 신고한 기록 <span class="when">최대 90일</span></dt>
+              <dd>신고한 순간 그 사람이 볼 수 있던 내 라운지 내용(라벨·스토리 전체·사진 — 감정은 남기지 않아요)이 함께 남아요. 내 이름은 지워요. 신고를 처리하고 악용을 막기 위해서예요.</dd>
+            </div>
+            <div>
+              <dt>다른 사람이 나를 차단했던 기록</dt>
+              <dd>그 사람의 차단 목록에 이름 없이 내부 번호로만 남아요. 그 사람이 차단을 풀거나 계정을 지우면 함께 사라져요.</dd>
+            </div>
+            <div>
+              <dt>라운지 서버 접속 기록 <span class="when">3개월</span></dt>
+              <dd>접속 IP·기기 정보 같은 기록이에요. 통신비밀보호법에 따라 3개월 보관해요(정리 작업 때문에 며칠 더 남을 수 있어요). 그 밖의 서버 기록은 30일 뒤 지워져요.</dd>
+            </div>
+            <div>
+              <dt>Cheers 판정·알림 발송·요청 횟수 기록 <span class="when">최대 이틀</span></dt>
+              <dd>옛 친구 쪽에 남은 Cheers 판정 기록과 알림 발송 기록, 너무 잦은 요청을 막는 횟수 기록이에요. 누구의 화면에도 보이지 않는 처리용 기록이에요. 자동으로 지워져요.</dd>
+            </div>
+            <div>
+              <dt>메일로 탈퇴를 요청했다면 그 메일 <span class="when">30일</span></dt>
+              <dd>답장한 날부터 30일 뒤 지워요.</dd>
+            </div>
+            <div>
+              <dt>로그인 서비스(Google Firebase)의 백업 <span class="when">최대 180일</span></dt>
+              <dd>지운 계정의 로그인 정보는 Google의 백업에서도 180일 안에 지워져요.</dd>
+            </div>
+          </dl>
+        </section>
+
+        <section>
+          <h2>5. 함께 알아 두세요</h2>
+          <ul>
+            <li><b>로그인 연결 끊기</b> — 라운지 계정을 지운 뒤에도 카카오·구글·애플 쪽에 모지또 연결이 남아 있으면 직접 끊을 수 있어요. 카카오: 카카오톡 설정 › 카카오계정 › 계정 이용 › 외부 서비스 · 애플: 아이폰 설정 › 내 이름 › 로그인 및 보안 › Apple로 로그인 · 구글: Google 계정 › 보안 › 타사 앱 및 서비스와의 연결. 안드로이드에서 구글 드라이브 백업을 쓰고 있다면 구글 연결은 끊지 마세요. 드라이브 백업도 같은 연결을 써서 끊으면 다시 연결할 때까지 자동 백업이 멈춰요.</li>
+            <li><b>골드</b> — 골드 회원권과 구독은 라운지 계정과 따로라서 지워지지도, 해지되지도 않아요. 구독 해지는 Google Play·App Store의 구독 관리에서 해 주세요.</li>
+            <li><b>일기</b> — 폰의 일기는 라운지 계정과 상관없이 그대로예요.</li>
+          </ul>
+          <p class="note">문의 mojitto.bar@gmail.com · <a href="/#/privacy">개인정보처리방침</a> · <a href="/terms/">이용약관</a></p>
+        </section>
+
+        <hr class="divider" />
+
+        <div lang="en" id="en">
+          <header>
+            <div class="app">Mojitto</div>
+            <h1>Delete your Cocktail Lounge account</h1>
+            <p class="lead">
+              How to delete your Cocktail Lounge account in the app “Mojitto - Daily Emoji Diary”.
+              A Lounge account is created when you sign in with Kakao, Google or Apple.
+              <b>Deleting your Lounge account does not touch the diary on your phone.</b>
+            </p>
+            <p class="meta">App: Mojitto - Daily Emoji Diary · Google Play developer: Tapas Maker</p>
+          </header>
+
+          <section>
+            <h2>1. Delete it in the app</h2>
+            <ol>
+              <li>Open Mojitto and go to the Cocktail Lounge from the <span class="ui">Cocktail</span> tab.</li>
+              <li>Tap the person button at the top right of the Lounge to open <span class="ui">My Lounge</span>.</li>
+              <li>Tap the account row near the bottom.</li>
+              <li>Tap <span class="ui">Delete Lounge account</span>, then <span class="ui">Delete</span>.</li>
+            </ol>
+            <p class="note">The steps are the same on Android and iPhone. You can also get there from the <span class="ui">Cocktail Lounge</span> row on the More screen, even while the Lounge is taking a break. If you signed in with Apple, an Apple confirmation appears at the end; closing it cancels the deletion. Once deleted, you are signed out right away and your drink disappears from your friends’ screens.</p>
+          </section>
+
+          <section>
+            <h2>2. Request it by email</h2>
+            <p>If you lost your phone, removed the app, or cannot sign in, send us an email.</p>
+            <a class="mail" href="mailto:mojitto.bar@gmail.com?subject=Lounge%20account%20deletion%20request">mojitto.bar@gmail.com</a>
+            <ul>
+              <li>Subject: <b>Lounge account deletion request</b></li>
+              <li>How you signed in (Kakao, Google or Apple)</li>
+              <li>Your Lounge name</li>
+              <li>If you signed in with Google, that Google email address</li>
+            </ul>
+            <p>If we can find your account from these details, we delete it and reply to you. We may ask a few more questions so that no one else’s account is deleted by mistake.</p>
+          </section>
+
+          <section>
+            <h2>3. What is deleted</h2>
+            <ul>
+              <li><b>Right away</b> — sign-in data, your invite code, the record used to find your account by Kakao member number, your notification address, and the drinks you brought into the Lounge with the labels, stories and photos you shared on them (they also disappear from your friends’ screens)</li>
+              <li><b>Starting a few minutes later, step by step</b> — your Lounge name, friendships, Cheers history, friend requests sent and received, your block list, sharing range settings, reports you made and their evidence, and suspension records. Everything is deleted within 24 hours.</li>
+            </ul>
+            <p>Deletion cannot be undone. If you sign in again the same way, a new empty account is created.</p>
+          </section>
+
+          <section>
+            <h2>4. What is kept, and for how long</h2>
+            <dl class="keep">
+              <div>
+                <dt>Reports other people made about you <span class="when">up to 90 days</span></dt>
+                <dd>What that person could see of your Lounge at the moment of the report (labels, the full story and photos — not your emotions) is kept with it. Your name is removed. This is to handle reports and prevent abuse.</dd>
+              </div>
+              <div>
+                <dt>Blocks other people made against you</dt>
+                <dd>They stay in that person’s block list as an internal number only, without your name, and disappear when that person unblocks you or deletes their account.</dd>
+              </div>
+              <div>
+                <dt>Lounge server access logs <span class="when">3 months</span></dt>
+                <dd>Records such as IP address and device information. We keep them for 3 months as required by the Protection of Communications Secrets Act (they may remain a few days longer because of how the cleanup job runs). Other server logs are deleted after 30 days.</dd>
+              </div>
+              <div>
+                <dt>Cheers, notification and request-rate records <span class="when">up to 2 days</span></dt>
+                <dd>Cheers check and notification records on a former friend’s side, and records that limit how often requests can be made. These processing records never appear on anyone’s screen. They are deleted automatically.</dd>
+              </div>
+              <div>
+                <dt>If you asked by email: that email <span class="when">30 days</span></dt>
+                <dd>Deleted 30 days after our reply.</dd>
+              </div>
+              <div>
+                <dt>Backups of the sign-in service (Google Firebase) <span class="when">up to 180 days</span></dt>
+                <dd>Sign-in data of a deleted account is also removed from Google’s backups within 180 days.</dd>
+              </div>
+            </dl>
+          </section>
+
+          <section>
+            <h2>5. Good to know</h2>
+            <ul>
+              <li><b>Sign-in connections</b> — if Mojitto still appears as connected in Kakao, Google or Apple after you delete your Lounge account, you can disconnect it yourself: Kakao: KakaoTalk Settings › Kakao Account › Account Use › External Service · Apple: iPhone Settings › your name › Sign-In &amp; Security › Sign in with Apple · Google: Google Account › Security › Your connections to third-party apps &amp; services. If you use Google Drive backup on Android, don’t disconnect Google. Drive backup uses the same connection, so disconnecting stops automatic backups until you connect again.</li>
+              <li><b>Gold</b> — Gold memberships and subscriptions are separate from your Lounge account, so they are neither deleted nor cancelled. To cancel a subscription, use subscription management in Google Play or the App Store.</li>
+              <li><b>Diary</b> — the diary on your phone stays as it is.</li>
+            </ul>
+            <p class="note">Contact mojitto.bar@gmail.com · <a href="/#/privacy">Privacy Policy</a> · <a href="/terms/">Terms of Use</a></p>
+          </section>
+        </div>
+      </main>
+
+      <footer>©MOJITTO ALL RIGHTS RESERVED.</footer>
+    </div>
+  </body>
+</html>
