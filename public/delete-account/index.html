@@ -112,8 +112,8 @@
         <section>
           <h2>3. 지워지는 것</h2>
           <ul>
-            <li><b>바로</b> — 로그인 정보, 초대 코드, 알림을 받을 주소, 라운지에 들고 간 잔과 거기 올린 라벨·스토리·사진(친구들 화면에서도 내려가요)</li>
-            <li><b>몇 분 뒤부터 차례로</b> — 라운지 이름, 친구 관계, Cheers 기록, 주고받은 친구 요청, 내 차단 목록, 공유 범위 설정, 내가 한 신고, 이용 정지 기록. 24시간 안에 모두 지워져요.</li>
+            <li><b>바로</b> — 로그인 정보, 초대 코드, 카카오 회원번호로 계정을 찾는 기록, 알림을 받을 주소, 라운지에 들고 간 잔과 거기 올린 라벨·스토리·사진(친구들 화면에서도 내려가요)</li>
+            <li><b>몇 분 뒤부터 차례로</b> — 라운지 이름, 친구 관계, Cheers 기록, 주고받은 친구 요청, 내 차단 목록, 공유 범위 설정, 내가 한 신고와 그 증거, 이용 정지 기록. 24시간 안에 모두 지워져요.</li>
           </ul>
           <p>지운 계정은 되돌릴 수 없어요. 같은 방법으로 다시 로그인하면 아무것도 없는 새 계정이 만들어져요.</p>
         </section>
@@ -131,11 +131,15 @@
             </div>
             <div>
               <dt>라운지 서버 접속 기록 <span class="when">3개월</span></dt>
-              <dd>접속 IP·기기 정보 같은 기록이에요. 통신비밀보호법에 따라 3개월 보관해요. 그 밖의 서버 기록은 30일 뒤 지워져요.</dd>
+              <dd>접속 IP·기기 정보 같은 기록이에요. 통신비밀보호법에 따라 3개월 보관해요(정리 작업 때문에 며칠 더 남을 수 있어요). 그 밖의 서버 기록은 30일 뒤 지워져요.</dd>
             </div>
             <div>
               <dt>Cheers 판정·알림 발송·요청 횟수 기록 <span class="when">최대 이틀</span></dt>
               <dd>옛 친구 쪽에 남은 Cheers 판정 기록과 알림 발송 기록, 너무 잦은 요청을 막는 횟수 기록이에요. 누구의 화면에도 보이지 않는 처리용 기록이에요. 자동으로 지워져요.</dd>
+            </div>
+            <div>
+              <dt>메일로 탈퇴를 요청했다면 그 메일 <span class="when">30일</span></dt>
+              <dd>답장한 날부터 30일 뒤 지워요.</dd>
             </div>
             <div>
               <dt>로그인 서비스(Google Firebase)의 백업 <span class="when">최대 180일</span></dt>
@@ -195,8 +199,8 @@
           <section>
             <h2>3. What is deleted</h2>
             <ul>
-              <li><b>Right away</b> — sign-in data, your invite code, your notification address, and the drinks you brought into the Lounge with the labels, stories and photos you shared on them (they also disappear from your friends’ screens)</li>
-              <li><b>Starting a few minutes later, step by step</b> — your Lounge name, friendships, Cheers history, friend requests sent and received, your block list, sharing range settings, reports you made, and suspension records. Everything is deleted within 24 hours.</li>
+              <li><b>Right away</b> — sign-in data, your invite code, the record used to find your account by Kakao member number, your notification address, and the drinks you brought into the Lounge with the labels, stories and photos you shared on them (they also disappear from your friends’ screens)</li>
+              <li><b>Starting a few minutes later, step by step</b> — your Lounge name, friendships, Cheers history, friend requests sent and received, your block list, sharing range settings, reports you made and their evidence, and suspension records. Everything is deleted within 24 hours.</li>
             </ul>
             <p>Deletion cannot be undone. If you sign in again the same way, a new empty account is created.</p>
           </section>
@@ -214,11 +218,15 @@
               </div>
               <div>
                 <dt>Lounge server access logs <span class="when">3 months</span></dt>
-                <dd>Records such as IP address and device information. We keep them for 3 months as required by the Protection of Communications Secrets Act. Other server logs are deleted after 30 days.</dd>
+                <dd>Records such as IP address and device information. We keep them for 3 months as required by the Protection of Communications Secrets Act (they may remain a few days longer because of how the cleanup job runs). Other server logs are deleted after 30 days.</dd>
               </div>
               <div>
                 <dt>Cheers, notification and request-rate records <span class="when">up to 2 days</span></dt>
                 <dd>Cheers check and notification records on a former friend’s side, and records that limit how often requests can be made. These processing records never appear on anyone’s screen. They are deleted automatically.</dd>
+              </div>
+              <div>
+                <dt>If you asked by email: that email <span class="when">30 days</span></dt>
+                <dd>Deleted 30 days after our reply.</dd>
               </div>
               <div>
                 <dt>Backups of the sign-in service (Google Firebase) <span class="when">up to 180 days</span></dt>
