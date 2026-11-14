@@ -3,21 +3,25 @@ import styled from "styled-components";
 import Container from "../Components/Container";
 import Cursor from "../Components/Cursor";
 import SiteHeader from "../Components/Header";
-import Privacy20260716 from "./Privacy20260716";
 import useInEffect from "../Hooks/useInEffect";
-import { POLICY_2026_11_14_EFFECTIVE_AT } from "../Assets/Data/policySchedule";
-import NOTICE from "../Assets/Policy/notice-2026-11-14.json";
-import privacyKo from "../Assets/Policy/privacy-2026-11-14.ko.html?raw";
-import privacyEn from "../Assets/Policy/privacy-2026-11-14.en.html?raw";
+import { POLICY_2026_11_22_EFFECTIVE_AT } from "../Assets/Data/policySchedule";
+import NOTICE from "../Assets/Policy/notice-2026-11-22.json";
+import privacyKo from "../Assets/Policy/privacy-2026-11-22.ko.html?raw";
+import privacyEn from "../Assets/Policy/privacy-2026-11-22.en.html?raw";
+import currentKo from "../Assets/Policy/privacy-2026-11-14.ko.html?raw";
+import currentEn from "../Assets/Policy/privacy-2026-11-14.en.html?raw";
 
 // 라이브 앱(골드 화면·라운지 로그인 화면)이 https://mojitto.bar/#/privacy 로 여는 쪽.
 //
-// 2026-11-06 공고 ~ 2026-11-13: 맨 위 공고 상자 → 새 방침(2026-11-14 시행) 한·영 → 지금 방침(2026-07-16 판).
-// 2026-11-14 0시(한국 시각)부터: 새 방침 한·영만. 바뀌는 순간은 policySchedule.js 한 곳에서 정한다.
+// 2026-11-14 공고 ~ 2026-11-21: 맨 위 공고 상자 → 새 방침(2026-11-22 시행 — Cheers 댓글 항목) 한·영 → 지금 방침(2026-11-14 판) 한·영.
+// 2026-11-22 0시(한국 시각)부터: 새 방침 한·영만. 바뀌는 순간은 policySchedule.js 한 곳에서 정한다.
+// (앞 개정: 2026-11-06 공고 → 2026-11-14 시행. 그때의 옛 판 2026-07-16 은 /privacy/2026-07-16/ 정적 쪽에 있다.)
 // 새 방침 글은 원고에서 만든 조각(src/Assets/Policy)을 그대로 넣는다 — 글을 여기서 고치지 않는다.
 
 const KO_HTML = { __html: privacyKo };
 const EN_HTML = { __html: privacyEn };
+const CURRENT_KO_HTML = { __html: currentKo };
+const CURRENT_EN_HTML = { __html: currentEn };
 const MAIL = "mojitto.bar@gmail.com";
 
 const Page = styled.div`
@@ -221,13 +225,6 @@ const PolicyArticle = styled.article`
   }
 `;
 
-const OldSection = styled.section`
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  padding: 0 20px;
-`;
-
 const scrollToId = (id) => {
   const el = document.getElementById(id);
   if (el) el.scrollIntoView({ behavior: "smooth", block: "start" });
@@ -246,7 +243,7 @@ const withMailLink = (text) =>
   );
 
 const MojitoPrivacy = () => {
-  const inEffect = useInEffect(POLICY_2026_11_14_EFFECTIVE_AT);
+  const inEffect = useInEffect(POLICY_2026_11_22_EFFECTIVE_AT);
 
   useEffect(() => {
     document.title = "개인정보처리방침 | 모지또";
@@ -269,47 +266,51 @@ const MojitoPrivacy = () => {
 
           {!inEffect && (
             <Notice aria-labelledby="policy-notice-title" data-policy-notice="">
-              <NoticeTitle id="policy-notice-title">11월 14일부터 새 방침이 시행돼요</NoticeTitle>
+              <NoticeTitle id="policy-notice-title">11월 22일부터 방침에 Cheers 댓글 항목이 더해져요</NoticeTitle>
               <NoticeText>{withMailLink(NOTICE.ko)}</NoticeText>
               <NoticeLinks>
-                <a href="/privacy/changes-2026-11-14/">바뀌는 점 — 변경 전·후 비교표</a>
-                <LinkButton type="button" onClick={() => scrollToId("privacy-2026-11-14")}>
+                <a href="/privacy/changes-2026-11-22/">바뀌는 점 — 변경 전·후 비교표</a>
+                <LinkButton type="button" onClick={() => scrollToId("privacy-2026-11-22")}>
                   새 방침 전문
                 </LinkButton>
-                <LinkButton type="button" onClick={() => scrollToId("privacy-2026-07-16")}>
-                  지금 방침 전문(2026년 7월 16일 시행)
+                <LinkButton type="button" onClick={() => scrollToId("privacy-2026-11-14")}>
+                  지금 방침 전문(2026년 11월 14일 시행)
                 </LinkButton>
-                <a href="/terms/">이용약관</a>
               </NoticeLinks>
               <NoticeEnglish lang="en">
-                <NoticeTitle>The new Privacy Policy takes effect on November 14</NoticeTitle>
+                <NoticeTitle>Cheers comments are added to the Privacy Policy from November 22</NoticeTitle>
                 <NoticeText>{withMailLink(NOTICE.en)}</NoticeText>
                 <NoticeLinks>
-                  <a href="/privacy/changes-2026-11-14/">Comparison table (in Korean)</a>
+                  <a href="/privacy/changes-2026-11-22/">Comparison table (in Korean)</a>
                   <LinkButton type="button" onClick={() => scrollToId("privacy-en")}>
                     New Privacy Policy in English
                   </LinkButton>
-                  <a href="/terms/">Terms of Use</a>
+                  <LinkButton type="button" onClick={() => scrollToId("privacy-current-en")}>
+                    Current Privacy Policy in English
+                  </LinkButton>
                 </NoticeLinks>
               </NoticeEnglish>
             </Notice>
           )}
 
-          {!inEffect && <SectionLabel>새 방침 · 2026년 11월 14일부터 시행</SectionLabel>}
-          <PolicyArticle id="privacy-2026-11-14" lang="ko" dangerouslySetInnerHTML={KO_HTML} />
+          {!inEffect && <SectionLabel>새 방침 · 2026년 11월 22일부터 시행</SectionLabel>}
+          <PolicyArticle id="privacy-2026-11-22" lang="ko" dangerouslySetInnerHTML={KO_HTML} />
 
           <Divider />
-          {!inEffect && <SectionLabel lang="en">New policy · effective November 14, 2026</SectionLabel>}
+          {!inEffect && <SectionLabel lang="en">New policy · effective November 22, 2026</SectionLabel>}
           <PolicyArticle id="privacy-en" lang="en" dangerouslySetInnerHTML={EN_HTML} />
-        </Page>
 
-        {!inEffect && (
-          <OldSection id="privacy-2026-07-16" data-policy-current="">
-            <Divider />
-            <SectionLabel>지금 시행 중인 방침 · 2026년 7월 16일 ~ 2026년 11월 13일</SectionLabel>
-          </OldSection>
-        )}
-        {!inEffect && <Privacy20260716 />}
+          {!inEffect && (
+            <section id="privacy-2026-11-14" data-policy-current="">
+              <Divider />
+              <SectionLabel>지금 시행 중인 방침 · 2026년 11월 14일 ~ 2026년 11월 21일</SectionLabel>
+              <PolicyArticle lang="ko" dangerouslySetInnerHTML={CURRENT_KO_HTML} />
+              <Divider />
+              <SectionLabel lang="en">Current policy · November 14 – 21, 2026</SectionLabel>
+              <PolicyArticle id="privacy-current-en" lang="en" dangerouslySetInnerHTML={CURRENT_EN_HTML} />
+            </section>
+          )}
+        </Page>
       </Container>
     </>
   );

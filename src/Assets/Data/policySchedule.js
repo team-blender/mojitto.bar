@@ -5,6 +5,10 @@
 // 정적 쪽 /terms/ 의 공고 상자도 같은 값으로 숨는다(public/terms/index.html 맨 아래 스크립트).
 export const POLICY_2026_11_14_EFFECTIVE_AT = Date.parse("2026-11-14T00:00:00+09:00");
 
+// 개인정보처리방침 2026-11-22 개정(Cheers 댓글 항목)이 시행되는 순간. 공고 2026-11-14.
+// 그 전까지 #/privacy 는 공고 상자 → 새 판 → 지금 판(2026-11-14) 순으로 보이고, 이 순간부터 새 판만 보인다.
+export const POLICY_2026_11_22_EFFECTIVE_AT = Date.parse("2026-11-22T00:00:00+09:00");
+
 export function isInEffect(effectiveAt, now = Date.now()) {
   return now >= effectiveAt;
 }
